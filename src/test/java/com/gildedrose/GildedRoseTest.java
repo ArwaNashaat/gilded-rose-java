@@ -106,7 +106,7 @@ class GildedRoseTest {
 
     @Test
     void sulfurasNeverDecreaseInQualityWhenSellInEqualsZero() {
-        Item[] items = new Item[]{new Item("Sulfuras", 0, 50)};
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 50)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
@@ -120,7 +120,6 @@ class GildedRoseTest {
         assertEquals(50, app.items[0].quality);
     }
 
-    //    - "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
     @Test
     void backStagePassesIncreasesInQualityTheOlderItGets() {
         Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 16, 5)};
@@ -159,5 +158,21 @@ class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(8, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesIncreasesInQualityBy2WhenSellInEquals6() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 6, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(7, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesQualityDropsToZeroWhenSellInEquals0() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 0, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
     }
 }
