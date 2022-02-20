@@ -13,7 +13,7 @@ class GildedRose {
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
+                        decreaseQualityByOne(i, 1);
                     }
                 }
             } else {
@@ -22,15 +22,11 @@ class GildedRose {
 
                     if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
+                            increaseQualityByOneWhenQualityIsLessThan50(i);
                         }
 
                         if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
+                            increaseQualityByOneWhenQualityIsLessThan50(i);
                         }
                     }
                 }
@@ -42,21 +38,29 @@ class GildedRose {
 
             if (items[i].sellIn < 0) {
                 if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
+                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert") && items[i].quality > 0) {
+
+                        if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+                            decreaseQualityByOne(i, 1);
                         }
+
                     } else {
-                        items[i].quality = items[i].quality - items[i].quality;
+                        decreaseQualityByOne(i, items[i].quality);
                     }
                 } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
+                    increaseQualityByOneWhenQualityIsLessThan50(i);
                 }
             }
+        }
+    }
+
+    private void decreaseQualityByOne(int i, int i2) {
+        items[i].quality = items[i].quality - i2;
+    }
+
+    private void increaseQualityByOneWhenQualityIsLessThan50(int i) {
+        if (items[i].quality < 50) {
+            items[i].quality = items[i].quality + 1;
         }
     }
 }
