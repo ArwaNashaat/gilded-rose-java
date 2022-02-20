@@ -114,9 +114,50 @@ class GildedRoseTest {
 
     @Test
     void sulfurasNeverDecreaseInQualityWhenSellInIsDoesNotEqualZero() {
-        Item[] items = new Item[]{new Item("Sulfuras", 1, 50)};
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 1, 50)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
+    }
+
+    //    - "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
+    @Test
+    void backStagePassesIncreasesInQualityTheOlderItGets() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 16, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(6, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesIncreasesInQualityBy2WhenSellInIsEquals10() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 10, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(7, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesIncreasesInQualityBy2WhenSellInIsLessThan10() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 7, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(7, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesIncreasesInQualityBy2WhenSellInIsLessThan5() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 4, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(8, app.items[0].quality);
+    }
+
+    @Test
+    void backStagePassesIncreasesInQualityBy2WhenSellInEquals5() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 5, 5)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(8, app.items[0].quality);
     }
 }
