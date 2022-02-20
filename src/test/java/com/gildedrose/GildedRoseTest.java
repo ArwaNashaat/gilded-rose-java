@@ -103,4 +103,20 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
     }
+
+    @Test
+    void sulfurasNeverDecreaseInQualityWhenSellInEqualsZero() {
+        Item[] items = new Item[]{new Item("Sulfuras", 0, 50)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    void sulfurasNeverDecreaseInQualityWhenSellInIsDoesNotEqualZero() {
+        Item[] items = new Item[]{new Item("Sulfuras", 1, 50)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
 }
