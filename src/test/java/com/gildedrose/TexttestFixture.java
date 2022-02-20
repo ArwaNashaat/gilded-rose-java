@@ -1,5 +1,9 @@
 package com.gildedrose;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TexttestFixture {
     public static void main(String[] args) {
         System.out.println("OMGHAI!");
@@ -34,4 +38,20 @@ public class TexttestFixture {
         }
     }
 
+    //- "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+    @Test
+    void sulfurasNeverDecreaseInQuality() {
+        Item[] items = new Item[]{new Item("Sulfuras", 0, 50)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    void sulfurasNeverDecreaseInQuality_2() {
+        Item[] items = new Item[]{new Item("Sulfuras", 1, 50)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
 }
