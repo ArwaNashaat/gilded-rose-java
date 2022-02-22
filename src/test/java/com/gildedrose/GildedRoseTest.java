@@ -12,42 +12,6 @@ public class GildedRoseTest {
     }
 
     @Test
-    void sellInAndQualityValuesDecreaseAfterUpdate() {
-        Item[] items = new Item[]{new Item("foo", 1, 1)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].sellIn);
-        assertEquals(0, gildedRose.items[0].quality);
-    }
-
-    @Test
-    void whenSellInEqualsZeroQualityDegradesTwiceAsFast() {
-        Item[] items = new Item[]{new Item("foo", 0, 6)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(4, gildedRose.items[0].quality);
-    }
-
-    @Test
-    void qualityOfNormalItemDecreasesQualityIs49() {
-        Item[] items = new Item[]{new Item("foo", 1, 49)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(48, gildedRose.items[0].quality);
-    }
-
-    @Test
-    void whenSellInIsNotEqualZeroTheQualityOfAnItemIsNeverNegative() {
-        Item[] items = new Item[]{new Item("foo", 1, 0)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].quality);
-    }
-
-    @Test
-    void whenSellInEqualsZeroTheQualityOfAnItemIsNeverNegative() {
-        Item[] items = new Item[]{new Item("foo", 0, 1)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].quality);
-    }
-
-    @Test
     void agedBrieIncreaseInQualityTheOlderItGets() {
         Item[] items = new Item[]{new Item("Aged Brie", 1, 1)};
         GildedRose gildedRose = updateQualityOf(items);
