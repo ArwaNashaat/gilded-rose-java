@@ -41,7 +41,7 @@ class GildedRose {
                         decreaseQualityOfAllItemsExceptForSulfuras(i);
 
                     } else {
-                        decreaseQualityByOne(i, items[i].quality);
+                        decreaseQualityBy(i, items[i].quality);
                     }
                 } else {
                     increaseQualityWhenQualityIsLessThan50By(i, UPDATE_BY_ONE);
@@ -56,9 +56,13 @@ class GildedRose {
         }
     }
 
-    private void increaseQualityByOneWhenQualityIsLessThan50(int i) {
+    private void decreaseQualityBy(int i, int decreaseValue) {
+        items[i].quality = items[i].quality - decreaseValue;
+    }
+
+    private void increaseQualityWhenQualityIsLessThan50By(int i, int increaseValue) {
         if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1;
+            items[i].quality = items[i].quality + increaseValue;
         }
     }
 }
