@@ -1,7 +1,7 @@
 package com.gildedrose;
 
-class GildedRose {
-    Item[] items;
+public class GildedRose {
+    public Item[] items;
     final int UPDATE_BY_ONE = 1;
 
     public GildedRose(Item[] items) {
