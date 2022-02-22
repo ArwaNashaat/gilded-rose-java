@@ -98,18 +98,18 @@ class GildedRoseTest {
 
     @Test
     void sulfurasNeverDecreaseInQualityWhenSellInEqualsZero() {
-        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 50)};
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 80)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(50, app.items[0].quality);
+        assertEquals(80, app.items[0].quality);
     }
 
     @Test
     void sulfurasNeverDecreaseInQualityWhenSellInIsDoesNotEqualZero() {
-        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 1, 50)};
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 1, 80)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(50, app.items[0].quality);
+        assertEquals(80, app.items[0].quality);
     }
 
     @Test
