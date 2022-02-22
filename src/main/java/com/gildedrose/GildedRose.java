@@ -2,6 +2,7 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
+    final int UPDATE_BY_ONE = 1;
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -12,49 +13,47 @@ class GildedRose {
             if (!items[i].name.equals("Aged Brie")
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        decreaseQualityByOne(i, 1);
-                    }
+                    decreaseQualityOfAllItemsExceptForSulfuras(i);
                 }
             } else {
 
-                increaseQualityByOneWhenQualityIsLessThan50(i);
+                increaseQualityWhenQualityIsLessThan50By(i, UPDATE_BY_ONE);
 
                 if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                     if (items[i].sellIn < 11) {
-                        increaseQualityByOneWhenQualityIsLessThan50(i);
+                        increaseQualityWhenQualityIsLessThan50By(i, UPDATE_BY_ONE);
                     }
 
                     if (items[i].sellIn < 6) {
-                        increaseQualityByOneWhenQualityIsLessThan50(i);
+                        increaseQualityWhenQualityIsLessThan50By(i, UPDATE_BY_ONE);
                     }
                 }
             }
 
             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
+                items[i].sellIn = items[i].sellIn - UPDATE_BY_ONE;
             }
 
             if (items[i].sellIn < 0) {
                 if (!items[i].name.equals("Aged Brie")) {
                     if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert") && items[i].quality > 0) {
 
-                        if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                            decreaseQualityByOne(i, 1);
-                        }
+                        decreaseQualityOfAllItemsExceptForSulfuras(i);
 
                     } else {
                         decreaseQualityByOne(i, items[i].quality);
                     }
                 } else {
-                    increaseQualityByOneWhenQualityIsLessThan50(i);
+                    increaseQualityWhenQualityIsLessThan50By(i, UPDATE_BY_ONE);
                 }
             }
         }
     }
 
-    private void decreaseQualityByOne(int i, int i2) {
-        items[i].quality = items[i].quality - i2;
+    private void decreaseQualityOfAllItemsExceptForSulfuras(int i) {
+        if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+            decreaseQualityBy(i, UPDATE_BY_ONE);
+        }
     }
 
     private void increaseQualityByOneWhenQualityIsLessThan50(int i) {
