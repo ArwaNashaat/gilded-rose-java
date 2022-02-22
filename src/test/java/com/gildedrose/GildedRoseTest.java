@@ -26,13 +26,6 @@ public class GildedRoseTest {
     }
 
     @Test
-    void qualityOfNormalItemIsNeverMoreThan50() {
-        Item[] items = new Item[]{new Item("foo", 1, 51)};
-        GildedRose gildedRose = updateQualityOf(items);
-        assertEquals(50, gildedRose.items[0].quality);
-    }
-
-    @Test
     void qualityOfAgedBrieIsNeverMoreThan50() {
         Item[] items = new Item[]{new Item("Aged Brie", 1, 50)};
         GildedRose gildedRose = updateQualityOf(items);

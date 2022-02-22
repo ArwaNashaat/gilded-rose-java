@@ -46,4 +46,11 @@ public class NormalItemsTest {
         GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
         assertEquals(0, gildedRose.items[0].quality);
     }
+
+    @Test
+    void qualityOfNormalItemIsNeverMoreThan50() {
+        Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 51)};
+        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
+        assertEquals(50, gildedRose.items[0].quality);
+    }
 }
