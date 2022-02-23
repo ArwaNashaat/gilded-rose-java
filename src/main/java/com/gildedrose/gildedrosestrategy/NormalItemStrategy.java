@@ -14,7 +14,6 @@ public class NormalItemStrategy implements GildedRoseStrategy {
 
         if (!isQualityZeroOrLess(item.quality))
             decreaseSellInAndQualityByOne(item);
-
     }
 
     private void decreaseSellInAndQualityByOne(Item item) {
