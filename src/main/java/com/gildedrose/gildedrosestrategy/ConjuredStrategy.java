@@ -6,6 +6,7 @@ public class ConjuredStrategy implements GildedRoseStrategy {
 
     @Override
     public void updateQuality(Item item) {
+        item.sellIn--;
         item.quality-=2;
     }
 }

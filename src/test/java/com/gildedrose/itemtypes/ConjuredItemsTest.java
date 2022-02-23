@@ -18,4 +18,11 @@ public class ConjuredItemsTest {
         assertEquals(1, context.getItems()[0].quality);
     }
 
+    @Test
+    void sellInDecreases() {
+        Item[] items = new Item[]{new Item(CONJURED_ITEM, 3, 3)};
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(2, context.getItems()[0].sellIn);
+    }
 }
