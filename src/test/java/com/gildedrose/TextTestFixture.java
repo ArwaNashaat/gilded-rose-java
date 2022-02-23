@@ -1,10 +1,8 @@
 package com.gildedrose;
 
-import org.junit.jupiter.api.Test;
+import com.gildedrose.gildedrosestrategy.Context;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class TexttestFixture {
+public class TextTestFixture {
     public static void main(String[] args) {
         System.out.println("OMGHAI!");
 
@@ -20,7 +18,8 @@ public class TexttestFixture {
                 // this conjured item does not work properly yet
                 new Item("Conjured Mana Cake", 3, 6) };
 
-        GildedRose app = new GildedRose(items);
+        Context context = new Context();
+        context.setItems(items);
 
         int days = 2;
         if (args.length > 0) {
@@ -34,24 +33,7 @@ public class TexttestFixture {
                 System.out.println(item);
             }
             System.out.println();
-            app.updateQuality();
+            context.updateQuality();
         }
-    }
-
-    //- "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
-    @Test
-    void sulfurasNeverDecreaseInQuality() {
-        Item[] items = new Item[]{new Item("Sulfuras", 0, 50)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals(50, app.items[0].quality);
-    }
-
-    @Test
-    void sulfurasNeverDecreaseInQuality_2() {
-        Item[] items = new Item[]{new Item("Sulfuras", 1, 50)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals(50, app.items[0].quality);
     }
 }

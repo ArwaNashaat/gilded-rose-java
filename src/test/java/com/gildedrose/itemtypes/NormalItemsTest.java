@@ -1,7 +1,6 @@
 package com.gildedrose.itemtypes;
 
-import com.gildedrose.GildedRose;
-import com.gildedrose.GildedRoseTest;
+import com.gildedrose.gildedrosestrategy.Context;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.Test;
 
@@ -9,48 +8,54 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NormalItemsTest {
     final String NORMAL_ITEM = "foo";
-    GildedRoseTest gildedRoseTest = new GildedRoseTest();
-
+    Context context = new Context();
+    
     @Test
     void sellInAndQualityValuesDecreaseAfterUpdate() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 1)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].sellIn);
-        assertEquals(0, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(0, context.getItems()[0].sellIn);
+        assertEquals(0, context.getItems()[0].quality);
     }
 
     @Test
     void whenSellInEqualsZeroQualityDegradesTwiceAsFast() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 0, 6)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(4, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(4, context.getItems()[0].quality);
     }
 
     @Test
     void qualityOfNormalItemDecreasesQualityIs49() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 49)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(48, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(48, context.getItems()[0].quality);
     }
 
     @Test
     void whenSellInIsNotEqualZeroTheQualityOfAnItemIsNeverNegative() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 0)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(0, context.getItems()[0].quality);
     }
 
     @Test
     void whenSellInEqualsZeroTheQualityOfAnItemIsNeverNegative() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 0, 1)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(0, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(0, context.getItems()[0].quality);
     }
 
     @Test
     void qualityOfNormalItemIsNeverMoreThan50() {
         Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 51)};
-        GildedRose gildedRose = gildedRoseTest.updateQualityOf(items);
-        assertEquals(50, gildedRose.items[0].quality);
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(50, context.getItems()[0].quality);
     }
 }
