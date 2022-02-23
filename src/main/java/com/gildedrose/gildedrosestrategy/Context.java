@@ -31,6 +31,8 @@ public class Context {
         else if (item.name.contains("Sulfuras"))
             this.gildedRoseStrategy = new SulfurasStrategy();
 
+        else if(item.name.contains("Conjured"))
+            this.gildedRoseStrategy = new ConjuredStrategy();
         else
             this.gildedRoseStrategy = new NormalItemStrategy();
     }
