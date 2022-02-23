@@ -25,4 +25,12 @@ public class ConjuredItemsTest {
         context.updateQuality();
         assertEquals(2, context.getItems()[0].sellIn);
     }
+
+    @Test
+    void sellInisNeverNegative() {
+        Item[] items = new Item[]{new Item(CONJURED_ITEM, 0, 3)};
+        context.setItems(items);
+        context.updateQuality();
+        assertEquals(0, context.getItems()[0].sellIn);
+    }
 }
