@@ -8,9 +8,9 @@
         <relativePath/>
     </parent>
     <groupId>com.gildedrose</groupId>
-    <artifactId>gilded-rose-kata</artifactId>
+    <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gilded-rose-kata</name>
+    <name>backend</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
