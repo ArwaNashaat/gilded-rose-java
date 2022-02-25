@@ -10,11 +10,11 @@ public class ItemController {
     private final ItemService itemService;
 
     @Autowired
-
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping(value = "/Item/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public void add(@RequestBody Item item) {
         itemService.add(item);
