@@ -20,7 +20,7 @@ public class ItemTest {
     ItemRepository itemRepository;
 
     @Test
-    public void addNormalItem() {
+    public void insertNormalItemIntoDataBase() {
         Item item = new Item("foo", 5, 5);
         itemRepository.save(item);
 
