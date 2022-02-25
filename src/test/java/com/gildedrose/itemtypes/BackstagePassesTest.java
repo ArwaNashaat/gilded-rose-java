@@ -1,6 +1,6 @@
 package com.gildedrose.itemtypes;
 
-import com.gildedrose.gildedrosestrategy.Context;
+import com.gildedrose.strategy.Context;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.Test;
 

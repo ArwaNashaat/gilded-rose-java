@@ -1,7 +1,7 @@
 package com.gildedrose.itemtypes;
 
 import com.gildedrose.Item;
-import com.gildedrose.gildedrosestrategy.Context;
+import com.gildedrose.strategy.Context;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

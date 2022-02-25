@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-import com.gildedrose.gildedrosestrategy.Context;
+import com.gildedrose.strategy.Context;
 
 public class TextTestFixture {
     public static void main(String[] args) {
