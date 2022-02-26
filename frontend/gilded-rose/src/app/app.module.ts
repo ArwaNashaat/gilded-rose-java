@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule, routingComponents } from './routing/app-routing.module';
+import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './components/app-component/app.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -14,8 +14,7 @@ const material=[
 ]
 @NgModule({
   declarations: [
-    AppComponent,
-    routingComponents
+    AppComponent
   ],
   imports: [
     BrowserModule,
