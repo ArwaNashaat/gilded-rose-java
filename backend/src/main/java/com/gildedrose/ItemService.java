@@ -3,6 +3,8 @@ package com.gildedrose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -19,5 +21,9 @@ public class ItemService {
 
     public Item getItemBy(int id){
         return itemRepository.getById(id);
+    }
+
+    public List<Item> getAllItems(){
+        return itemRepository.getAllItems();
     }
 }
