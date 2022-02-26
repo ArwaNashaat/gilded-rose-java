@@ -8,7 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 const httpOptions = {
   headers: new HttpHeaders({
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Origin': '*',
 
   })
 };
@@ -17,6 +17,7 @@ const httpOptions = {
 })
 
 export class ItemService {
+  items: Array<Item> = []
 
   constructor(private http: HttpClient) {
 
@@ -29,6 +30,15 @@ export class ItemService {
         catchError(this.handleError)
       );
 
+  }
+
+  getAllItems(){
+    const url = `http://127.0.0.1:8080/Item/getAllItems`;
+
+    return this.http.get<Item[]>(url)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
