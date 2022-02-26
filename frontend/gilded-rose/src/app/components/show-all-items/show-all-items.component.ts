@@ -20,10 +20,6 @@ export class ShowAllItemsComponent implements OnInit {
 
     this.getAllItems()
   }
-  
-  showAllItems() {
-    this.getAllItems()
-  }
 
   private getAllItems() {
     return this.itemService.getAllItems().subscribe(result => {

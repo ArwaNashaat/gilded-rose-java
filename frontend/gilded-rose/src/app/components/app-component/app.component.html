@@ -1,37 +1,14 @@
-<h1>Gilded Rose</h1>
-<form #userForm="ngForm">
-
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" name="Name" [(ngModel)]="name" required>
+<div class="anchored">
+    <div class="center-header">
+        <h1>Gilded Rose</h1>
     </div>
 
-    <br>
-
-    <div class="form-group">
-        <label for="sellIn">Sell In</label>
-        <input type="text" class="form-control" name="sellIn" [(ngModel)]="sellIn" required>
-    </div>
-
-    <br>
-
-    <div class="form-group">
-        <label for="quality">Quality</label>
-        <input type="text" class="form-control" name="quality" [(ngModel)]="quality" required>
-    </div>
-
-
-    <br>
-
-    <div>
-        <button (click)='addItem()'>Add Item</button>
-    </div>
-
-    <br>
-
-    <div>
-        <button routerLink='/showAllItems'>Go to Show All Items Page</button>
-    </div>
-
-</form>
+    <section>
+        <div class="example-label"></div>
+        <div class="example-button-row">
+            <button mat-button routerLink='/addItem'>Go to Add Item Page</button>
+            <button mat-button routerLink='/showAllItems'>Go to Show All Items Page</button>
+        </div>
+    </section>
+</div>
 <router-outlet></router-outlet>
