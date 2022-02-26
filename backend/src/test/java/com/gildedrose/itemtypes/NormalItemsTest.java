@@ -4,6 +4,9 @@ import com.gildedrose.strategy.Context;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NormalItemsTest {
@@ -12,50 +15,56 @@ public class NormalItemsTest {
     
     @Test
     void sellInAndQualityValuesDecreaseAfterUpdate() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 1)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(0, context.getItems()[0].sellIn);
-        assertEquals(0, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 1);
+
+        context.updateQuality(items);
+        assertEquals(0, context.getItems().get(0).sellIn);
+        assertEquals(0, context.getItems().get(0).quality);
     }
 
     @Test
     void whenSellInEqualsZeroQualityDegradesTwiceAsFast() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 0, 6)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(4, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(0, 6);
+
+        context.updateQuality(items);
+        assertEquals(4, context.getItems().get(0).quality);
     }
 
     @Test
     void qualityOfNormalItemDecreasesQualityIs49() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 49)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(48, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 49);
+
+        context.updateQuality(items);
+        assertEquals(48, context.getItems().get(0).quality);
     }
 
     @Test
     void whenSellInIsNotEqualZeroTheQualityOfAnItemIsNeverNegative() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 0)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(0, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 0);
+
+        context.updateQuality(items);
+        assertEquals(0, context.getItems().get(0).quality);
     }
 
     @Test
     void whenSellInEqualsZeroTheQualityOfAnItemIsNeverNegative() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 0, 1)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(0, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(0, 1);
+
+        context.updateQuality(items);
+        assertEquals(0, context.getItems().get(0).quality);
     }
 
     @Test
     void qualityOfNormalItemIsNeverMoreThan50() {
-        Item[] items = new Item[]{new Item(NORMAL_ITEM, 1, 51)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(50, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 51);
+
+        context.updateQuality(items);
+        assertEquals(50, context.getItems().get(0).quality);
+    }
+
+    private List<Item> createItemListWith(int sellIn, int quality) {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(NORMAL_ITEM, sellIn, quality));
+        return items;
     }
 }

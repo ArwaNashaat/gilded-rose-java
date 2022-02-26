@@ -38,6 +38,55 @@ public class ItemControllerTest {
         assertThatItemInTheDatabaseEquals(normalItem);
     }
 
+    @Test
+    public void getAllItemsTest() {
+        hitAddItemRequest(items);
+
+        Response response = getAllItemsResponse();
+
+        List<Item> actualItems = getResponseBodyAsItemList(response);
+        List<Item> expectedItems = getExpectedItemAsList(items);
+
+        assertEquals(expectedItems.toString(), actualItems.toString());
+    }
+
+    @Test
+    public void getAgedBrieItemsTest() {
+        hitAddItemRequest(items);
+
+        Response response = getAgedBrieItemsResponse();
+
+        List<Item> actualItems = getResponseBodyAsItemList(response);
+        List<Item> expectedItems = getExpectedAgedBrieItemAsList(items);
+        assertEquals(expectedItems.toString(), actualItems.toString());
+    }
+
+    @Test
+    public void updateQuality(){
+        Item item = new Item("foo", 5, 5);
+        Item expectedItemAfterUpdate = new Item("foo", 4, 4);
+
+        addItem(item);
+        updateQualityForItemsResponse();
+
+        List<Item> actualItemsAfterUpdate = getItemsFromDatabase();
+
+        assertEquals(expectedItemAfterUpdate.toString(), actualItemsAfterUpdate.get(0).toString());
+    }
+
+    private List<Item> getItemsFromDatabase() {
+        Response response = getAllItemsResponse();
+        return getResponseBodyAsItemList(response);
+    }
+
+    private void updateQualityForItemsResponse() {
+         given().
+                 header("Content-Type", "application/json").
+                 when().
+                post("/Item/updateQuality").then().
+                statusCode(200);
+    }
+
     private void addItem(Item item) {
         given().
                 body(item).
@@ -57,18 +106,6 @@ public class ItemControllerTest {
                 statusCode(200).
                 and().
                 body(equalTo("{" + item + "}"));
-    }
-
-    @Test
-    public void getAllItemsTest() {
-        hitAddItemRequest(items);
-
-        Response response = getAllItemsResponse();
-
-        List<Item> actualItems = getResponseBodyAsItemList(response);
-        List<Item> expectedItems = getExpectedItemAsList(items);
-
-        assertEquals(expectedItems.toString(), actualItems.toString());
     }
 
     private Response getAllItemsResponse() {
@@ -93,17 +130,6 @@ public class ItemControllerTest {
         Genson genson = new Genson();
         return genson.deserialize(response.body().asByteArray(), new GenericType<List<Item>>() {
         });
-    }
-
-    @Test
-    public void getAgedBrieItemsTest() {
-        hitAddItemRequest(items);
-
-        Response response = getAgedBrieItemsResponse();
-
-        List<Item> actualItems = getResponseBodyAsItemList(response);
-        List<Item> expectedItems = getExpectedAgedBrieItemAsList(items);
-        assertEquals(expectedItems.toString(), actualItems.toString());
     }
 
     private Response getAgedBrieItemsResponse() {

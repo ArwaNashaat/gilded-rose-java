@@ -4,6 +4,9 @@ import com.gildedrose.strategy.Context;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AgedBrieTest {
@@ -13,25 +16,29 @@ public class AgedBrieTest {
 
     @Test
     void agedBrieIncreaseInQualityTheOlderItGets() {
-        Item[] items = new Item[]{new Item(AGED_BRIE, 1, 1)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(2, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 1);
+        context.updateQuality(items);
+        assertEquals(2, context.getItems().get(0).quality);
     }
 
     @Test
     void qualityOfAgedBrieIsNeverMoreThan50() {
-        Item[] items = new Item[]{new Item(AGED_BRIE, 1, 50)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(50, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(1, 50);
+        context.updateQuality(items);
+        assertEquals(50, context.getItems().get(0).quality);
     }
 
     @Test
     void whenSellInEqualsZeroQualityOfAgedBrieIsNeverMoreThan50() {
-        Item[] items = new Item[]{new Item(AGED_BRIE, 0, 50)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(50, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(0, 50);
+        context.updateQuality(items);
+        assertEquals(50, context.getItems().get(0).quality);
+    }
+
+
+    private List<Item> createItemListWith(int sellIn, int quality) {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(AGED_BRIE, sellIn, quality));
+        return items;
     }
 }

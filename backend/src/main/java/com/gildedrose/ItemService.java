@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,16 @@ public class ItemService {
 
     public List<Item> getAgedBrieItems() {
         return itemRepository.getAgedBrieItems();
+    }
+
+    public void updateQuality() {
+        List<Item> items = itemRepository.getAllItems();
+        Context context = new Context();
+
+        context.updateQuality(items);
+        items = context.getItems();
+        for(int i=0; i<items.size(); i++)
+            itemRepository.updateQuality(items.get(i).id, items.get(i).sellIn, items.get(i).quality);
+
     }
 }

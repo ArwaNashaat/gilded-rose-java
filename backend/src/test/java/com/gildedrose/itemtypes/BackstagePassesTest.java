@@ -4,6 +4,9 @@ import com.gildedrose.strategy.Context;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BackstagePassesTest {
@@ -12,73 +15,79 @@ class BackstagePassesTest {
     
     @Test
     void backStagePassesIncreasesInQualityTheOlderItGets() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 16, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(6, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(16, 5);
+
+        context.updateQuality(items);
+        assertEquals(6, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesQualityIsNeverAbove50() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 5, 49)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(50, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(5, 49);
+
+        context.updateQuality(items);
+        assertEquals(50, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesIncreasesInQualityBy2WhenSellInIsEquals10() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 10, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(7, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(10, 5);
+
+        context.updateQuality(items);
+        assertEquals(7, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesIncreasesInQualityBy2WhenSellInIsLessThan10() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 7, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(7, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(7, 5);
+
+        context.updateQuality(items);
+        assertEquals(7, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesIncreasesInQualityBy2WhenSellInIsLessThan5() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 4, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(8, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(4, 5);
+
+        context.updateQuality(items);
+        assertEquals(8, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesIncreasesInQualityBy3WhenSellInEquals5() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 5, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(8, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(5, 5);
+
+        context.updateQuality(items);
+        assertEquals(8, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesIncreasesInQualityBy2WhenSellInEquals6() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 6, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(7, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(6, 5);
+
+        context.updateQuality(items);
+        assertEquals(7, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesQualityDropsToZeroWhenSellInEquals0() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 0, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(0, context.getItems()[0].quality);
+        List<Item> items = createItemListWith(0, 5);
+
+        context.updateQuality(items);
+        assertEquals(0, context.getItems().get(0).quality);
     }
 
     @Test
     void backStagePassesSellInDecrease() {
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 5, 5)};
-        context.setItems(items);
-        context.updateQuality();
-        assertEquals(4, context.getItems()[0].sellIn);
+        List<Item> items = createItemListWith(5, 5);
+
+        context.updateQuality(items);
+        assertEquals(4, context.getItems().get(0).sellIn);
+    }
+
+    private List<Item> createItemListWith(int sellIn, int quality) {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(BACKSTAGE_PASSES, sellIn, quality));
+        return items;
     }
 }

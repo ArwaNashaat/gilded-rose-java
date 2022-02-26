@@ -32,6 +32,11 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
+    @PostMapping(value = "/Item/updateQuality", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateQuality() {
+        itemService.updateQuality();
+    }
+
     @GetMapping(value = "/Item/getAgedBrieItems", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Item> getAgedBrieItems() {
         return itemService.getAgedBrieItems();

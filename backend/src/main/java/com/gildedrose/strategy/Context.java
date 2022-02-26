@@ -2,22 +2,25 @@ package com.gildedrose.strategy;
 
 import com.gildedrose.Item;
 
+import java.util.List;
+
 public class Context {
     GildedRoseStrategy gildedRoseStrategy;
-    Item[] items;
+    List<Item> items;
 
-    public void setItems(Item[] items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
-    public Item[] getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            setStrategyFor(items[i]);
-            gildedRoseStrategy.updateQuality(items[i]);
+    public void updateQuality(List<Item> items) {
+        setItems(items);
+        for (int i = 0; i < this.items.size(); i++) {
+            setStrategyFor(this.items.get(i));
+            gildedRoseStrategy.updateQuality(this.items.get(i));
         }
     }
 
