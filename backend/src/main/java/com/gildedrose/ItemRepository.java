@@ -27,7 +27,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Query(
             value = "UPDATE ITEM i SET i.sell_in=sell_in , i.quality=quality   WHERE i.id=id",
             nativeQuery = true)
-    void updateQuality(@Param("id") int id, @Param("sell_in") int sellIn, @Param("quality") int quality);
+    void updateItem(@Param("id") int id, @Param("sell_in") int sellIn, @Param("quality") int quality);
 
 //    @Query(value = "SELECT * FROM Orders WHERE Amount BETWEEN :startAmt AND :endAmt" , nativeQuery=true)
 //    List<OrderEntity> findOrdersBy(@Param("startAmt") int startAmt, @Param("endAmt") int endAmt);

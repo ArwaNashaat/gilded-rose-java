@@ -34,12 +34,23 @@ public class ItemService {
 
     public void updateQuality() {
         List<Item> items = itemRepository.getAllItems();
+
+        items = updateQualityByContextFor(items);
+
+        updateItemsInDatabase(items);
+
+    }
+
+    private List<Item> updateQualityByContextFor(List<Item> items) {
         Context context = new Context();
-
         context.updateQuality(items);
-        items = context.getItems();
-        for(int i=0; i<items.size(); i++)
-            itemRepository.updateQuality(items.get(i).id, items.get(i).sellIn, items.get(i).quality);
 
+        items = context.getItems();
+        return items;
+    }
+
+    private void updateItemsInDatabase(List<Item> items) {
+        for(int i=0; i<items.size(); i++)
+            itemRepository.updateItem(items.get(i).id, items.get(i).sellIn, items.get(i).quality);
     }
 }
