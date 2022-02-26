@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from '../Item.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ItemServiceService {
+export class ItemService {
 
   constructor(private http: HttpClient) {
 

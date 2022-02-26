@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Item } from 'src/app/Item.model';
-import { ItemServiceService } from 'src/app/services/item-service.service';
+import { ItemService } from 'src/app/services/item.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ export class AppComponent {
 
   item: Item;
 
-  constructor(public itemService: ItemServiceService) {
+  constructor(public itemService: ItemService) {
 
   }
 
