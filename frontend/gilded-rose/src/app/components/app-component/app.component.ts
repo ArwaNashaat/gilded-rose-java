@@ -21,7 +21,6 @@ export class AppComponent {
 
   addItem(){
     this.item = new Item(this.name, this.sellIn, this.quality)
-    this.itemService.addItem(this.item).subscribe((result)=>
-    console.warn(result) );
+    this.itemService.addItem(this.item).subscribe();
   }
 }
