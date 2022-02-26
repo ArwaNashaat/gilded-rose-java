@@ -58,15 +58,15 @@ public class ItemControllerTest {
 
     @Test
     public void getAllItemsTest() {
-        Item normalItem = new Item("+5 Dexterity Vest", 10, 20);
-        Item agedBrieItem = new Item("Aged Brie", 2, 0);
+        Item[] items = new Item[]{new Item("+5 Dexterity Vest", 10, 20),
+                new Item("Aged Brie", 2, 0)};
 
-        hitAddItemRequest(normalItem, agedBrieItem);
+        hitAddItemRequest(items);
 
         Response response = getAllItemsResponse();
 
         List<Item> actualItems = getResponseBodyAsItemList(response);
-        List<Item> expectedItems = getExpectedItemAsList(normalItem, agedBrieItem);
+        List<Item> expectedItems = getExpectedItemAsList(items);
 
         assertEquals(expectedItems.toString(), actualItems.toString());
     }
@@ -77,21 +77,62 @@ public class ItemControllerTest {
                 get("/Item/getAllItems").andReturn();
     }
 
-    private void hitAddItemRequest(Item normalItem, Item agedBrieItem) {
-        addItem(normalItem);
-        addItem(agedBrieItem);
+    private void hitAddItemRequest(Item[] items) {
+        for (int i = 0; i < items.length; i++)
+            addItem(items[i]);
     }
 
-    private List<Item> getExpectedItemAsList(Item normalItem, Item agedBrieItem) {
-        List<Item> items = new ArrayList<>();
-        items.add(normalItem);
-        items.add(agedBrieItem);
-        return items;
+    private List<Item> getExpectedItemAsList(Item[] items) {
+        List<Item> itemList = new ArrayList<>();
+        for (int i = 0; i < items.length; i++)
+            itemList.add(items[i]);
+        return itemList;
     }
 
     private List<Item> getResponseBodyAsItemList(Response response) {
         Genson genson = new Genson();
-        return genson.deserialize(response.body().asByteArray(), new GenericType<List<Item>>(){});
+        return genson.deserialize(response.body().asByteArray(), new GenericType<List<Item>>() {
+        });
     }
 
+    @Test
+    public void getAgedBrieItemsTest() {
+        Item[] items = createItemsArray();
+        hitAddItemRequest(items);
+
+        Response response = getAgedBrieItemsResponse();
+
+        List<Item> actualItems = getResponseBodyAsItemList(response);
+        List<Item> expectedItems = getExpectedAgedBrieItemAsList(items);
+        assertEquals(expectedItems.toString(), actualItems.toString());
+    }
+
+    private Response getAgedBrieItemsResponse() {
+        Response response = given().
+                when().
+                get("/Item/getAgedBrieItems").andReturn();
+        return response;
+    }
+
+    private List<Item> getExpectedAgedBrieItemAsList(Item[] items) {
+        List<Item> itemList = new ArrayList<>();
+        for (int i = 0; i < items.length; i++)
+            if (items[i].name.contains("Aged Brie"))
+                itemList.add(items[i]);
+        return itemList;
+    }
+
+    private Item[] createItemsArray() {
+        Item[] items = new Item[]{
+                new Item("+5 Dexterity Vest", 10, 20),
+                new Item("Aged Brie", 2, 0),
+                new Item("Elixir of the Mongoose", 5, 7),
+                new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+                new Item("Conjured Mana Cake", 3, 6)};
+        return items;
+    }
 }

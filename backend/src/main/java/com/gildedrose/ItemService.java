@@ -26,4 +26,8 @@ public class ItemService {
     public List<Item> getAllItems(){
         return itemRepository.getAllItems();
     }
+
+    public List<Item> getAgedBrieItems() {
+        return itemRepository.getAgedBrieItems();
+    }
 }

@@ -13,4 +13,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             value = "SELECT * FROM ITEM",
             nativeQuery = true)
     List<Item> getAllItems();
+
+    @Query(
+            value = "SELECT * FROM ITEM WHERE name LIKE 'Aged Brie%'",
+            nativeQuery = true)
+    List<Item> getAgedBrieItems();
 }

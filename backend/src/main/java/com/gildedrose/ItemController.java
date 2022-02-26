@@ -32,6 +32,11 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
+    @GetMapping(value = "/Item/getAgedBrieItems", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Item> getAgedBrieItems() {
+        return itemService.getAgedBrieItems();
+    }
+
     private String formJsonResponse(Item item) {
         return "{"+item.toString()+"}";
     }
