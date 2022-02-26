@@ -21,18 +21,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ItemControllerTest {
 
+    Item[] items;
+
     @BeforeEach
     public void setUp() {
         RestAssured.port = 8080;
+        items = createItemsArray();
     }
 
     @Test
     public void ItemIsAddedTest() {
-        Item item = new Item("Aged Brie", 5, 8);
+        Item normalItem = new Item("Aged Brie", 5, 8);
 
-        addItem(item);
+        addItem(normalItem);
 
-        assertThatItemInTheDatabaseEquals(item);
+        assertThatItemInTheDatabaseEquals(normalItem);
     }
 
     private void addItem(Item item) {
@@ -58,9 +61,6 @@ public class ItemControllerTest {
 
     @Test
     public void getAllItemsTest() {
-        Item[] items = new Item[]{new Item("+5 Dexterity Vest", 10, 20),
-                new Item("Aged Brie", 2, 0)};
-
         hitAddItemRequest(items);
 
         Response response = getAllItemsResponse();
@@ -97,7 +97,6 @@ public class ItemControllerTest {
 
     @Test
     public void getAgedBrieItemsTest() {
-        Item[] items = createItemsArray();
         hitAddItemRequest(items);
 
         Response response = getAgedBrieItemsResponse();
@@ -108,10 +107,9 @@ public class ItemControllerTest {
     }
 
     private Response getAgedBrieItemsResponse() {
-        Response response = given().
+        return given().
                 when().
                 get("/Item/getAgedBrieItems").andReturn();
-        return response;
     }
 
     private List<Item> getExpectedAgedBrieItemAsList(Item[] items) {
@@ -123,7 +121,7 @@ public class ItemControllerTest {
     }
 
     private Item[] createItemsArray() {
-        Item[] items = new Item[]{
+        return new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20),
                 new Item("Aged Brie", 2, 0),
                 new Item("Elixir of the Mongoose", 5, 7),
@@ -133,6 +131,5 @@ public class ItemControllerTest {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
                 new Item("Conjured Mana Cake", 3, 6)};
-        return items;
     }
 }
